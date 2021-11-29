@@ -68,11 +68,12 @@ section{
     background: #1d1b31;
   }
   .contact-wrap {
-      width: 80%;
+      width: 100%;
       height: auto;
       margin: auto;
       display: flex;
       flex-wrap: wrap;
+      text-align: center;
   }
   
   .contact-in {
@@ -94,7 +95,7 @@ section{
   }
   
   .contact-in h1 {
-      font-size: 24px;
+      font-size: 30px;
       color: #fff;
       text-transform: uppercase;
       font-weight: 500;
