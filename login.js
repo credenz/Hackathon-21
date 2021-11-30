@@ -24,7 +24,6 @@ const view = {
       nextButton.classList.remove("active");
     }
   },
-
   // Get custom error message from 'customMessages' based on the type of error.
   getCustomErrorMessage: function (type, validity, customMessages) {
     if (validity.typeMismatch) {
@@ -77,7 +76,7 @@ const view = {
     if (validInputs == currentTabInputs.length) {
       view.currentFormTab < formTabs.length - 1
         ? view.displayFormTab(formTabs, view.currentFormTab, 1)
-        : view.registrationForm.submit();
+        : registerFirebase();
     }
   },
   // By default, the first form button is set as 'active'. Get its width and apply it to button border width.
@@ -93,6 +92,7 @@ const view = {
     const formSelectBorder = formSelect.querySelector(".border");
     const forms = document.querySelectorAll("form");
     const inputs = document.querySelectorAll("input, select, textarea");
+    // const auth = getAuth();
     const registrationInputs = document.querySelectorAll(
       "#registrationForm input, select, textarea"
     );
@@ -162,29 +162,24 @@ const view = {
     });
 
     registrationSubmitSection.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log("registrationSubmitSection:", e.target.name);
       if (e.target.name == "nextTab" || e.target.name == "registrationSubmit") {
-        view.checkTabValidity(registrationFormTabs);
-        console.log("objecHeret");
+          view.checkTabValidity(registrationFormTabs);
       } else if (e.target.name == "previousTab") {
         view.displayFormTab(registrationFormTabs, view.currentFormTab, -1);
       }
     });
 
     loginSubmitSection.addEventListener("click", function (e) {
+      e.preventDefault()
       if (e.target.name == "loginSubmit") {
-        document.getElementById("loginForm").submit();
+        loginFirebase()
       }
     });
 
     view.registrationForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      view.checkTabValidity(registrationFormTabs);
-      const email = registrationFormTabs["registrationEmail"].value;
-      const password = registrationFormTabs["registrationPassword"].value;
-      auth.createuserwithemailandpassword(email, password).then((cred) => {
-        console.log(cred);
-        alert("User created successfully");
-      });
     });
 
     // On 'enter' key press, prevent the form from being submitted and run 'checkTabValidity' instead.
@@ -204,3 +199,44 @@ document.addEventListener("DOMContentLoaded", function (e) {
 window.addEventListener("load", function (e) {
   view.setFormSelectBorder();
 });
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-firestore.js";
+const auth = getAuth();
+const db = getFirestore();
+
+function registerFirebase() {
+  console.log("In frebase func");
+  const email = document.getElementById("registrationEmail").value;
+  const password = document.getElementById("registrationPassword").value;
+  createUserWithEmailAndPassword(auth, email, password).then(async (cred) => {
+    console.log(cred);
+    try {
+     const docRef = await addDoc(collection(db, "users"), {
+       name: document.getElementById("registrationName").value || "",
+       email: document.getElementById("registrationEmail").value || "",
+       password: document.getElementById("registrationPassword").value || "",
+       phone: document.getElementById("registrationNumber").value || "",
+       institute: document.getElementById("institute").value || "",
+       memberId: document.getElementById("memberID").value || "",
+     });
+     alert("User created successfully, document ID: " + docRef.id); 
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  });
+}
+
+function loginFirebase() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+  signInWithEmailAndPassword(auth,email, password).then((cred) => {
+    console.log(cred);
+    alert("User logged in successfully");
+    // window.location.href = "http://www.w3schools.com";
+  });
+}
