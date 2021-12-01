@@ -7,7 +7,7 @@ body{
 }
 #navbar {
     overflow: hidden;
-    background-color: #333;
+    background-color: transparent;
   }
   
   /* Navbar links */
@@ -16,14 +16,48 @@ body{
     display: block;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px;
+    /* padding: 14px; */
     text-decoration: none;
   }
-  
+  #navbar a:hover{
+    border-bottom: 1px ;
+  }
   /* Page content */
   .content {
     padding: 16px;
   }
+  nav {
+    background: black;
+    font-family: sans-serif;
+}
+     .navbar-brand {
+    color: aqua;
+    font-size: 45px;
+    font-weight: bold;
+}
+    nav ul li a {
+    position: relative;
+    color: white;
+    padding: 5px 0;
+    text-transform: uppercase;
+    font-size: 1.8rem;
+}
+nav ul li a::before {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    background: white;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .4s linear;
+}
+nav ul li a:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
   
   /* The sticky class is added to the navbar with JS when it reaches its scroll position */
   .sticky {
@@ -42,59 +76,7 @@ body{
     margin: 0;
     padding: 0;
 }
-/* .bottom-nav{
-    position: absolute;
-    bottom: 0;
-}
-.top-nav{
-    position: fixed;
-    top: 0;
-}
-.nav{
-    display:flex;
-    align-items: center;
-    height: 6rem;
-    position: absolute;
-    bottom: 0;
-    /* transform: translateY(-200%); */
-    /* background-color: black; */
-    /* width:100%; */
-    /* z-index: -1; 
-
-}
-.nav ul{
-    display: flex;
-    padding: 0 0 0 20rem;
-    position: absolute;
-}
-.nav ul li{
-    display: flex;
-    list-style: none;
-    font-size: 2rem; 
-    justify-content: center;   
-}
-.nav ul li a{
-    display: block;
-    color: white;
-    padding: .3rem 1.6rem;
-
-    border-radius: .1rem;
-    text-decoration: none;
-     transition: 0.2s; 
-}
- .nav ul li a:active{
-    border: solid white 1.5px;
-    border-radius: 0.5rem;
-    padding: .1rem 1.5rem;
-    margin:0 0;
-} 
-.nav ul li a:hover{
-    border: solid white 1.5px;
-    border-radius: 0.5rem;
-    padding: .1rem 1.5rem;
-    margin:0 0;
-} */
-/* Navigation Bar : Logo and Image */
+/* NAV */
 
 #logo{
     margin: 0rem 2.6rem 0 0;
@@ -173,7 +155,21 @@ body{
     }
 }
 /* About */
-
+.abtussec{
+  width: 75%;
+  /* background-color: blue; */
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:space-evenly;
+  border-radius: 8px;
+  padding: 50px 20px 50px 20px;
+  /* margin: 30px 0px; */
+  margin-top: 50px;
+  border: 1px solid grey;
+  box-shadow: 4px 4px lightgray;
+}
 .carousel-item{
   height: 100vh;
 }
@@ -702,7 +698,7 @@ body{
   background: -webkit-linear-gradient(to right, #0ABFBC, #FC354C);
   background: linear-gradient(to right, #0ABFBC, #FC354C);
   }
-  
+
   .bottom{
           
     justify-content: center;
@@ -794,12 +790,12 @@ section{
 
 .heading{
     text-align: center;
-    color:rgb(8, 8, 8);
+    color:black;
     text-transform: uppercase;
     padding-bottom: 3.5rem;
     font-size: 4rem;
     /* animation: text 3s 1; */
-    text-shadow: 1px 4px 4px rgb(7, 7, 7);
+    text-shadow: 1px 4px 4px gray;
 }
 
 .heading span{
